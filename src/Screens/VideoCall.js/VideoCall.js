@@ -155,7 +155,7 @@ export const VideoCall = ({navigation, route}) => {
 
       {(status === "connected" || status === "connecting") && (
         <View style={styles.callContainer}>
-          <Text style={{position: 'absolute', left: width/4, top: 50}}>Connected User: {participants?.identity ? participants?.identity : '...' }</Text>
+          {/* <Text style={{position: 'absolute', left: width/4, top: 50}}>Connected User: {participants?.identity ? participants?.identity : '...' }</Text> */}
           {status === "connected" && (
             <View style={styles.remoteGrid}>
               {Array.from(videoTracks, ([trackSid, trackIdentifier]) => {

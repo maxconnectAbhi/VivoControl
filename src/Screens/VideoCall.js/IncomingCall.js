@@ -36,18 +36,18 @@ const styles = StyleSheet.create({
   }
 });
 
-RNCallKeep.setup({
-  ios: {
-    appName: 'VivoControl',
-  },
-  android: {
-    //selfManaged : true,
-     alertTitle: 'Permissions required',
-    alertDescription: 'This application needs to access your phone accounts',
-    cancelButton: 'Cancel',
-    okButton: 'ok',
-  },
-});
+// RNCallKeep.setup({
+//   ios: {
+//     appName: 'VivoControl',
+//   },
+//   android: {
+//     //selfManaged : true,
+//      alertTitle: 'Permissions required',
+//     alertDescription: 'This application needs to access your phone accounts',
+//     cancelButton: 'Cancel',
+//     okButton: 'ok',
+//   },
+// });
 
 const getNewUuid = () => uuid.v4().toLowerCase();
 
