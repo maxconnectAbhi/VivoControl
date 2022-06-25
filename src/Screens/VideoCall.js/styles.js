@@ -1,3 +1,5 @@
+import { height, width } from "../../Utils/Scale";
+
 export default {
     container: {
       flex: 1,
@@ -30,7 +32,7 @@ export default {
     localVideo: {
       flex: 1,
       width: 150,
-      height: 250,
+      height: 200,
       position: "absolute",
       right: 10,
       bottom: 10,
@@ -41,11 +43,9 @@ export default {
       flexWrap: "wrap",
     },
     remoteVideo: {
-      marginTop: 20,
-      marginLeft: 10,
-      marginRight: 10,
-      width: 100,
-      height: 120,
+      marginTop: 50,
+      width: width,
+      height: height/2,
     },
     optionsContainer: {
       position: "absolute",

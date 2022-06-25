@@ -3,9 +3,9 @@ package com.vivocontrol;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
-import io.wazo.callkeep.RNCallKeepModule;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+// import io.wazo.callkeep.RNCallKeepModule;
+// import androidx.annotation.NonNull;
+// import androidx.annotation.Nullable;
 
 public class MainActivity extends ReactActivity {
 
@@ -41,13 +41,13 @@ public class MainActivity extends ReactActivity {
     }
   }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case RNCallKeepModule.REQUEST_READ_PHONE_STATE:
-                RNCallKeepModule.onRequestPermissionsResult(requestCode, permissions, grantResults);
-                break;
-        }
-    }
+    // @Override
+    // public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    //     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    //     switch (requestCode) {
+    //         case RNCallKeepModule.REQUEST_READ_PHONE_STATE:
+    //             RNCallKeepModule.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    //             break;
+    //     }
+    // }
 }

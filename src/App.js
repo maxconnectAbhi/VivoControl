@@ -6,24 +6,25 @@
  * @flow strict-local
  */
 import { NavigationContainer } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {
   Text,
   StatusBar,
   TextInput,
   LogBox,
-  SafeAreaView
-} from 'react-native';
+  SafeAreaView} from 'react-native';
 import NetworkStatusProvider from './Contexts/networkStatus/NetworkStatusProvider';
 import Navigator from './Navigation/SwitchNavigator';
 
-export default class App extends Component {
 
-  constructor(props) {
-    super(props);
-  }
 
-  componentDidMount() {
+function App() {
+  useEffect(() => {
+    componentMount()
+  }, []);
+
+
+   const componentMount=()=> {
     // Override Text scaling
     if (Text.defaultProps) {
       Text.defaultProps.allowFontScaling = false;
@@ -43,21 +44,21 @@ export default class App extends Component {
     LogBox.ignoreAllLogs(true)
     StatusBar.setTranslucent(true)
     StatusBar.setBackgroundColor('transparent')
+   
   }
 
-
-  render() {
-    return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle='dark-content' />
-        <NetworkStatusProvider>
-          <NavigationContainer
-            ref={nav => { this.navigator = nav; }}
-          >
-            <Navigator />
-          </NavigationContainer>
-        </NetworkStatusProvider>
-      </SafeAreaView>
-    )
-  }
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar barStyle='dark-content' />
+      <NetworkStatusProvider>
+        <NavigationContainer
+          ref={nav => { this.navigator = nav; }}
+        >
+          <Navigator />
+        </NavigationContainer>
+      </NetworkStatusProvider>
+    </SafeAreaView>
+  )
 }
+
+export default App;

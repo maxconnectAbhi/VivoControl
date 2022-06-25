@@ -33,13 +33,17 @@ export default class QRScan extends Component {
     return (
       <QRCodeScanner
         onRead={this.onSuccess}
+        showMarker
+       // cameraContainerStyle={{height: '90%', backgroundColor:'red'}}
+       cameraStyle={{height:'90%'}}
+        //containerStyle={{backgroundColor:'yellow', alignItems:'flex-end'}}
         flashMode={RNCamera.Constants.FlashMode.torch}
         //   flashMode={1}
-        topContent={
-          <Text style={styles.centerText}>
-            Scan QR Code
-          </Text>
-        }
+        // topContent={
+        //   <Text style={styles.centerText}>
+        //     Scan QR Code
+        //   </Text>
+        // }
         // bottomContent={
         //   <TouchableOpacity style={styles.buttonTouchable}>
         //     <Text style={styles.buttonText}>OK. Got it!</Text>
@@ -53,11 +57,12 @@ export default class QRScan extends Component {
 
 const styles = StyleSheet.create({
   centerText: {
-    flex: 1,
+   // flex: 1,
     fontSize: 18,
-    padding: 32,
+   // padding: 32,
     fontWeight: '500',
-    color: '#000'
+    //color: '#000',
+    color: 'rgb(0,122,255)'
   },
   buttonText: {
     fontSize: 21,

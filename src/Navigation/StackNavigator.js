@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../Screens/Home/Home';
 import { VideoCall } from '../Screens/VideoCall.js/VideoCall';
-import IncomingCall from '../Screens/VideoCall.js/IncomingCall';
+import CallUI from '../Screens/CallUI';
 const StackNavigator = createStackNavigator();
 
 const StackNavigatorComponent = () => {
@@ -14,7 +14,8 @@ const StackNavigatorComponent = () => {
       }}>
       <StackNavigator.Screen name='Home' component={Home} />
       <StackNavigator.Screen name='VideoCall' component={VideoCall} />
-      <StackNavigator.Screen name='IncomingCall' component={IncomingCall} />
+      <StackNavigator.Screen name='CallUI' component={CallUI} />
+
 
     </StackNavigator.Navigator>
   )

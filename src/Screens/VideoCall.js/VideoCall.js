@@ -18,6 +18,8 @@ import {
 } from "react-native-twilio-video-webrtc";
 import CustomButton from "../../Components/CustomButton";
 import CustomInput from "../../Components/CustomInput";
+import { GetApi } from "../../Network/Fetch";
+import { VIDEO_TOKEN } from "../../Network/URL";
 import { width } from "../../Utils/Scale";
 
 import styleSheet from "./styles";
@@ -25,25 +27,35 @@ import styleSheet from "./styles";
 const styles = StyleSheet.create(styleSheet);
 
 export const VideoCall = ({navigation, route}) => {
+ const {room_name} = route.params;
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [status, setStatus] = useState("disconnected");
   const [participants, setParticipants] = useState(new Map());
   const [videoTracks, setVideoTracks] = useState(new Map());
-  const [token, setToken] = useState( route.params.token);
   const twilioVideo = useRef(null);
 
   useEffect(() => {
-    _onConnectButtonPress()
+     _onConnect()
   }, [])
   
+  const _onConnect =()=>{
+    GetApi(VIDEO_TOKEN)
+    .then(async (response) => {
+     if(response.status == 200){
+      _onConnectButtonPress(response.data.token)
+     }else{
+       alert('Something went wrong!')
+     }
+    })
+  }
 
-  const _onConnectButtonPress = async () => {
+  const _onConnectButtonPress = async (token) => {
     if (Platform.OS === "android") {
       await _requestAudioPermission();
       await _requestCameraPermission();
     }
-    twilioVideo.current.connect({ accessToken: token, enableNetworkQualityReporting: true, dominantSpeakerEnabled: true});
+    twilioVideo.current.connect({roomName: room_name, accessToken: token, enableNetworkQualityReporting: true, dominantSpeakerEnabled: true});
     setStatus("connecting");
   };
 
@@ -62,7 +74,8 @@ export const VideoCall = ({navigation, route}) => {
     twilioVideo.current.flipCamera();
   };
 
-  const _onRoomDidConnect = () => {
+  const _onRoomDidConnect = (e) => {
+    console.log('e== ', e);
     setStatus("connected");
   };
 
@@ -146,10 +159,10 @@ export const VideoCall = ({navigation, route}) => {
           />
           */}
       <Text style={styles.welcome}>Connecting...</Text>
-      <CustomButton
-            title="Connect"
-            onPress={_onConnectButtonPress}
-          />
+      {/* <CustomButton
+            title="Re-Connect"
+            onPress={()=>_onConnect()}
+          /> */}
         </View>
       )}
 
@@ -161,7 +174,8 @@ export const VideoCall = ({navigation, route}) => {
               {Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
                 return (
                   <TwilioVideoParticipantView
-                    style={styles.remoteVideo}
+                  scaleType="fit"
+                   style={styles.remoteVideo}
                     key={trackSid}
                     trackIdentifier={trackIdentifier}
                   />

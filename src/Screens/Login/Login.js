@@ -18,7 +18,7 @@ const Login = ({navigation}) => {
     .then(async(credentials) => {
       // Successfully authenticated
       // Store the accessToken
-     // console.log('credentials== ', credentials)
+     console.log('credentials== ', credentials)
       await setAsync(AsyncKeys.ASYNC_USER_TOKEN, credentials.accessToken)
       setindicator(false)
       navigation.reset({routes: [{ name: 'Home'}], index:0})

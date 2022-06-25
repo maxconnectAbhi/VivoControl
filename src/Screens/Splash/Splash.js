@@ -9,13 +9,14 @@ const Splash = ({navigation}) => {
     React.useEffect(() => {
         setTimeout(() => {
         decideNavigation();
-        }, 1000);
+        }, 3000);
       }, []);
     
       async function decideNavigation() {
         const token = await getAsync(AsyncKeys.ASYNC_USER_TOKEN);
-        console.log('t= ', token);
-        if(token == null){
+        const access_token = JSON.stringify(token)
+        console.log('tokenNew=', access_token , typeof access_token);
+        if(access_token === 'null'){
           navigation.reset({routes: [{ name: 'Login'}], index:0})
         }else{
           navigation.reset({routes: [{ name: 'Home'}], index:0});

@@ -23,7 +23,6 @@ target 'VivoControl' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'RNCallKeep', :path => '../node_modules/react-native-callkeep'
 
   target 'VivoControlTests' do
     inherit! :complete

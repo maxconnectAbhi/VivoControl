@@ -5,6 +5,7 @@ import {
    Image,
    ActivityIndicator
 } from 'react-native';
+import { ColorConstants } from '../../Utils/Constants';
 import styles from './styles';
 
 export default CustomButton = ({
@@ -16,15 +17,16 @@ export default CustomButton = ({
    rightImage,
    leftImageStyle,
    rightImageStyle,
-   indicator
+   indicator,
+   hollow
 }) => {
    return (
       indicator ?
-      <TouchableOpacity onPress={onPress} style={[styles.buttonStyle, buttonStyle]} disabled>
-         <ActivityIndicator color={'#FFF'} size='large'/>
+      <TouchableOpacity onPress={onPress} style={hollow ? styles.hollowbuttonStyle : [styles.buttonStyle, buttonStyle]} disabled>
+         <ActivityIndicator color={hollow ? ColorConstants.BUTTON_COLOR : '#FFF'} size='large'/>
          </TouchableOpacity>
          :
-      <TouchableOpacity onPress={onPress} style={[styles.buttonStyle, buttonStyle]}>
+      <TouchableOpacity onPress={onPress} style={hollow ? [styles.hollowbuttonStyle, buttonStyle] : [styles.buttonStyle, buttonStyle]}>
          {leftImage
             &&
             <Image style={[styles.leftImageStyle, leftImageStyle]}
@@ -32,7 +34,7 @@ export default CustomButton = ({
                source={leftImage}>
             </Image>
          }
-         <Text style={[styles.textStyle, titleStyle]}>
+         <Text style={[styles.textStyle, titleStyle, {color: hollow ? ColorConstants.BUTTON_COLOR  : '#FFF'}]}>
             {title}
          </Text>
          {rightImage

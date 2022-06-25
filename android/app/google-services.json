@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "822968242067",
+    "project_id": "vivocontrol-test",
+    "storage_bucket": "vivocontrol-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822968242067:android:665181e68e66a417142266",
+        "android_client_info": {
+          "package_name": "com.vivocontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822968242067-18km3f71p4l0gjk9jneisgdmej27h93e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vivocontrol",
+            "certificate_hash": "d80195dff68e04346a5409336bf270800df3e6b3"
+          }
+        },
+        {
+          "client_id": "822968242067-gdbuoiemr3aklb6kfnddac5ktcn2l54u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmsj6mwOBU3Qz1bXrS7JQda9Pyqywl5Ts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822968242067-gdbuoiemr3aklb6kfnddac5ktcn2l54u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

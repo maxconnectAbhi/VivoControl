@@ -29,6 +29,10 @@ export default globalStyles = StyleSheet.create({
     },
     padding_20:{
         paddingVertical: verticalScale(20)
+    },
+    alignCenter:{
+        alignItems: 'center',
+        justifyContent:'space-evenly'
     }
 
 })
