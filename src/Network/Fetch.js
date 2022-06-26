@@ -11,15 +11,11 @@ const logOut = async () => {
 
 export async function PostApiToken(url,object) {
     const token = await getAsync(AsyncKeys.ASYNC_USER_TOKEN);
-
-            const searchParams = Object.keys(object).map((key) => {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(object[key]);
-          }).join('&');
               return await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+                headers: { 'Content-Type': 'application/json',
                            'Authorization': token},
-                body: searchParams,
+                body: JSON.stringify(object),
             }).then((response) => {
                 const statusCode = response.status;
                 console.log("statusCode", statusCode, url);
@@ -42,14 +38,12 @@ export async function PostApiToken(url,object) {
   }
 
   export async function PostApi(url,object) {
-      const searchParams = Object.keys(object).map((key) => {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(object[key]);
-      }).join('&');
+  
       console.log(url,object);
         return await fetch(url, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
-          body: searchParams,
+          headers: { 'Content-Type': 'application/json'},
+          body: JSON.stringify(object),
       }).then((response) => {
           const statusCode = response.status;
           console.log("statusCode", statusCode, url);
@@ -58,7 +52,7 @@ export async function PostApiToken(url,object) {
           return Promise.all([statusCode, data]);
       })
           .then(([statusCode, data]) => {
-               console.log("data=",searchParams, data);
+               console.log("data=", data);
               const responseObj = {
                   data: data,
                   status: statusCode

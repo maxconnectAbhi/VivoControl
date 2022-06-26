@@ -12,6 +12,7 @@ import RNVoipCall, { RNVoipPushKit } from 'react-native-voip-call';
 import messaging from '@react-native-firebase/messaging';
 import notifee, { AndroidCategory, AndroidImportance, AndroidVisibility } from '@notifee/react-native';
 import { width } from '../../Utils/Scale'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const IsIos = Platform.OS === 'ios';
 
@@ -153,9 +154,6 @@ useEffect(() => {
      */
     requestPermissions: true,
   });
-
-  const token = await messaging().getToken()
-  setToken(token)
       messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Message handled in the background!', remoteMessage);
        navigation.navigate('CallUI',{data: remoteMessage.data})
@@ -304,8 +302,7 @@ const stopRingtune = () => {
     auth0.webAuth
     .clearSession({})
     .then(async(success) => {
-      await setAsync(AsyncKeys.ASYNC_USER_TOKEN, null)
-        alert('Logged out!')
+      await AsyncStorage.clear()
         navigation.reset({routes: [{ name: 'Login'}], index:0})
     })
     .catch(error => {
@@ -334,10 +331,10 @@ const stopRingtune = () => {
         <Button title="Play Ringtune (Android only)" onPress={() => playRingtune()} />
         <Button title="stop Ringtune (Android only)" onPress={() => stopRingtune()} /> */}
      {/* <CustomButton title={'Video Call'} indicator={indicator} onPress={()=> Connect()}/> */}
-     <View>
+     {/* <View>
      <Text>Copy/Paste this token to postman for Notification</Text>
      <TextInput value={token} style={{width: width-50, borderColor: 'grey', borderWidth: 1}} multiline/>
-     </View>
+     </View> */}
      <CustomButton hollow title={'Logout'} buttonStyle={{marginTop: 20}} onPress={()=> Logout()}/>
 
     </View>

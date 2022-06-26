@@ -18,8 +18,8 @@ import {
 } from "react-native-twilio-video-webrtc";
 import CustomButton from "../../Components/CustomButton";
 import CustomInput from "../../Components/CustomInput";
-import { GetApi } from "../../Network/Fetch";
-import { VIDEO_TOKEN } from "../../Network/URL";
+import { GetApi, PostApiToken } from "../../Network/Fetch";
+import { DOOR_TRIGGER, VIDEO_TOKEN } from "../../Network/URL";
 import { width } from "../../Utils/Scale";
 
 import styleSheet from "./styles";
@@ -27,9 +27,9 @@ import styleSheet from "./styles";
 const styles = StyleSheet.create(styleSheet);
 
 export const VideoCall = ({navigation, route}) => {
- const {room_name} = route.params;
+ const {room_name, zoneId} = route.params;
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
-  const [isVideoEnabled, setIsVideoEnabled] = useState(true);
+  const [indicator, setIndicator] = useState(false);
   const [status, setStatus] = useState("disconnected");
   const [participants, setParticipants] = useState(new Map());
   const [videoTracks, setVideoTracks] = useState(new Map());
@@ -44,6 +44,20 @@ export const VideoCall = ({navigation, route}) => {
     .then(async (response) => {
      if(response.status == 200){
       _onConnectButtonPress(response.data.token)
+     }else{
+       alert('Something went wrong!')
+     }
+    })
+  }
+
+  const doorTrigger =()=>{
+    setIndicator(true)
+    let url = DOOR_TRIGGER + zoneId +'/trigger'
+    GetApi(url)
+    .then(async (response) => {
+      setIndicator(false)
+     if(response.status == 200){
+      alert('Door opened successfully')
      }else{
        alert('Something went wrong!')
      }
@@ -183,6 +197,7 @@ export const VideoCall = ({navigation, route}) => {
               })}
             </View>
           )}
+            <CustomButton buttonStyle={styles.button} indicator={indicator} title={'Open Door'} onPress={()=> doorTrigger()}/>
           <View style={styles.optionsContainer}>
             <TouchableOpacity
               style={[styles.optionButton,{backgroundColor: 'red'}]}

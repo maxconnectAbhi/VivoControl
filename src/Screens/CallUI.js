@@ -2,17 +2,44 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image, Platform} from 'react-native';
 import RNVoipCall, { RNVoipPushKit } from 'react-native-voip-call';
+import Sound from 'react-native-sound';
+
+Sound.setCategory('Playback');
+
+var ding = new Sound('iphone.mp3', Sound.MAIN_BUNDLE, (error) => {
+  if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // if loaded successfully
+    console.log('duration in seconds: ' + ding.getDuration() + 'number of channels: ' + ding.getNumberOfChannels());
+  
+  });
 
 const CallUI = ({navigation,route}) => {
  const {data} = route.params;
  const IsIos = Platform.OS === 'ios';
 
+
   useEffect(() => {
+    ding.setVolume(1);
    playRingtune()
-  }, [])
+    // return () => {
+    //   ding.release();
+    // };
+  }, []);
   
+ 
   const playRingtune = () => {
-    if(!IsIos){
+    if(IsIos){
+      ding.play(success => {
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    }else{
       let options = { 
         fileName: 'filename', // file inside android/app/src/main/res/raw 
         loop:true // looping the Ringtune
@@ -22,7 +49,15 @@ const CallUI = ({navigation,route}) => {
   }
   
   const stopRingtune = () => {
-    if(!IsIos){
+    if(IsIos){
+      ding.stop(success => {
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    }else{
       RNVoipCall.stopRingtune();
     }
   }
@@ -30,7 +65,7 @@ const CallUI = ({navigation,route}) => {
   const handleAction=(type)=>{
     stopRingtune()
    if(type){
-    navigation.replace('VideoCall', {room_name: data.roomName})
+    navigation.replace('VideoCall', {room_name: data.roomName, zoneId: data.zoneId})
    }else{
     navigation.goBack()
    }

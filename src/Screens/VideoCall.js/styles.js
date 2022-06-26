@@ -27,7 +27,12 @@ export default {
       textAlign: "center",
     },
     button: {
-      marginTop: 100,
+      position: "absolute",
+      left: 10,
+      bottom: '12%',
+      paddingVertical: 10,
+      width: '50%',
+      paddingVertical: 0
     },
     localVideo: {
       flex: 1,

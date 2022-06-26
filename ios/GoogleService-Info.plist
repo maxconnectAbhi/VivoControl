@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>822968242067-30f1p2viv768gisv8huclcveqma5aa2b.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.822968242067-30f1p2viv768gisv8huclcveqma5aa2b</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>822968242067-18km3f71p4l0gjk9jneisgdmej27h93e.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBdAqJ30ZqvV-5SkHN-EMN6gPPzFRppan4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>822968242067</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.jc.vivocontrol</string>
+	<key>PROJECT_ID</key>
+	<string>vivocontrol-test</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vivocontrol-test.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:822968242067:ios:3c2a438e685e2be1142266</string>
+</dict>
+</plist>

@@ -24,7 +24,7 @@ export default class QRScan extends Component {
           onPress: () => callNumber(e.data),
         },
         { text: "Video Call", 
-        onPress: () => this.props.navigation.navigate('VideoCall',{number: e.data}) }
+        onPress: () => this.props.navigation.navigate('VideoCall',{room_name: e.data.roomName, zoneId: e.data.zoneId}) }
       ]
     );
   };
