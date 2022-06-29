@@ -18,14 +18,12 @@ export async function PostApiToken(url,object) {
                 body: JSON.stringify(object),
             }).then((response) => {
                 const statusCode = response.status;
-                console.log("statusCode", statusCode, url);
+                console.log("statusCode", statusCode, url, response);
                 const data = response.json();
                 return Promise.all([statusCode, data]);
             })
                 .then(([statusCode, data]) => {
                   console.log("data=", data);
-                  data.message == 'Unauthorized access.' && logOut()
-
                    const responseObj = {
                         data: data,
                         status: statusCode
@@ -33,7 +31,8 @@ export async function PostApiToken(url,object) {
                     return responseObj;
                 })
                 .catch((error) => {
-                    console.error(error);
+                    console.error('error= ', error);
+                    return null
                 });
   }
 

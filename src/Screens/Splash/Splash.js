@@ -7,14 +7,13 @@ import GlobalStyles from '../../Utils/GlobalStyles';
 const Splash = ({navigation}) => {
 
     React.useEffect(() => {
-        setTimeout(() => {
         decideNavigation();
-        }, 3000);
       }, []);
     
       async function decideNavigation() {
-        const access_token = await getAsync(AsyncKeys.ASYNC_USER_TOKEN);
-       // const access_token = JSON.stringify(token)
+        const access_token = await getAsync(AsyncKeys.USER_LOGIN);
+        console.log('access_token= ', access_token);
+        //const access_token = JSON.stringify(token)
         if(access_token === null){
           navigation.reset({routes: [{ name: 'Login'}], index:0})
         }else{

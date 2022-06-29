@@ -8,8 +8,9 @@ import AsyncKeys from '../../Utils/AsyncKeys'
 import { AUTH0_CLIENTID, AUTH0_DOMAIN } from '../../Utils/Constants';
 import { PostApi, PostApiToken } from '../../Network/Fetch';
 import { APP_DEVICES } from '../../Network/URL';
-import { getUniqueId, getManufacturer, getModel } from 'react-native-device-info';
+import { getUniqueId, getManufacturer, getModel, getSystemVersion } from 'react-native-device-info';
 import messaging from '@react-native-firebase/messaging';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Login = ({navigation}) => {
   const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: AUTH0_CLIENTID });
@@ -20,6 +21,7 @@ const Login = ({navigation}) => {
     .webAuth
     .authorize({scope: 'openid profile email'})
     .then(async(credentials) => {
+      console.log('credentials= ', credentials.accessToken);
       await setAsync(AsyncKeys.ASYNC_USER_TOKEN, credentials.accessToken)
       sendDeviceId()
     }
@@ -35,20 +37,42 @@ const Login = ({navigation}) => {
            device_id: getUniqueId(),
            fcm_token: token,
            manufacturer:await getManufacturer(),
-           os:Platform.OS,
+           os: getSystemVersion(),
            model_number: getModel()
         }
       }
-      PostApiToken(APP_DEVICES, body)
-      .then(async (response) => {
-       if(response.status == 200){
+      console.log('body= ', body);
+      try {
+        PostApiToken(APP_DEVICES, body)
+        .then(async (response) => {
+          setindicator(false)
+         if(response?.status == 200){
+      await setAsync(AsyncKeys.USER_LOGIN, true)
+          navigation.reset({routes: [{ name: 'Home'}], index:0})
+         }else{
+           alert('Something went wrong!')
+           Logout()
+         }
+        })
+      } catch (error) {
         setindicator(false)
-        navigation.reset({routes: [{ name: 'Home'}], index:0})
-       }else{
-         alert('Something went wrong!')
-       }
-      })
+         alert('Something went wrong')
+         Logout()
+      }
+  
     }
+
+
+ const Logout=()=>{
+  auth0.webAuth
+  .clearSession({})
+  .then(async(success) => {
+    await AsyncStorage.clear()
+  })
+  .catch(error => {
+      console.log('Log out cancelled');
+  });
+}
 
 
   return (

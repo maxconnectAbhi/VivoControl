@@ -13,6 +13,10 @@ import messaging from '@react-native-firebase/messaging';
 import notifee, { AndroidCategory, AndroidImportance, AndroidVisibility } from '@notifee/react-native';
 import { width } from '../../Utils/Scale'
 import AsyncStorage from '@react-native-community/async-storage'
+import Profile from './Profile'
+import { GetApi } from '../../Network/Fetch'
+import { UNIT_DATA } from '../../Network/URL'
+import Loader from '../../Components/Loader'
 
 const IsIos = Platform.OS === 'ios';
 
@@ -32,16 +36,32 @@ const IsIos = Platform.OS === 'ios';
 
 const Home = ({navigation}) => {
 const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: AUTH0_CLIENTID });
-const [indicator, setindicator] = React.useState(false)
-const [scan, setScan] = React.useState(false)
+const [indicator, setindicator] = useState(true)
+const [scan, setScan] = useState(false)
 const [callStatus ,setCallStatus] = useState('no call initlized');
 const [token, setToken] = useState('');
+const [data, setdata] = useState([])
 
-  
- useEffect(()=>{  
+
+useEffect(()=>{  
+  getData()
   callKit();
   rnVoipCallListners();
 },[])
+
+function getData() {
+GetApi(UNIT_DATA)
+.then(async (response) => {
+  setindicator(false)
+    if(response.status == 200){
+      setdata(response.data)
+    }else{
+      alert('Something went wrong!')
+    }
+   })
+}
+  
+
 
 
 // Bootstrap sequence function
@@ -314,14 +334,19 @@ const stopRingtune = () => {
   //   return null;
   // }
 
+  if(indicator){
+    return(
+      <Loader/>
+    )
+  }
   return (
     <View style={[GlobalStyles.container, GlobalStyles.padding_20, GlobalStyles.alignCenter]}>
-        
-      {scan ?
+        <Profile data={data}/>
+      {/* {scan ?
       <QRScan navigation={navigation}/>
       :
       <CustomButton title={'Scan QR Code'} onPress={()=> setScan(true)}/>
-      }
+      } */}
      {/* <CustomButton title={'Show Call'} onPress={()=> navigation.navigate('CallUI')//displayIncommingCall()
     }/> */}
      {/* <Button onPress={()=>showMissedCall()} title="Show Missed Call" />
